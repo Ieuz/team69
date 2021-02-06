@@ -93,8 +93,3 @@ def bodyweight(user, diff):
         else:
             generate_situp(user, diff)
             
-#This would be replaced with the data for the logged in user
-user = {"current_plank":{"mins":2, "secs":40}, "max_pressups":30, "max_squats":15, "max_situps":30}
-difficulty = 3
-
-bodyweight(user, difficulty)
