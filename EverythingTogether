@@ -1,0 +1,426 @@
+
+def create_profile():
+    categories = ["running", "indoor cardio", "weight training", "muscle groups", "bodyweight training", "core strength"]
+    equipment = ["dumbells", "resistance band", "barbell", "pullup bar"]
+
+    
+    name = input("Please enter your name: ")
+    print("Categories:\nrunning, indoor cardio,\nweight training,\nmuscle groups, bodyweight training,\ncore strength\n\n")
+    print("Which categories of workout are you interested in? Please enter your answers as a list seperated by commas\n(In the format 'running,core strength,indoor cardio')")
+    user_cats = input(">>>")
+    user_cats_lst = user_cats.split(",")
+    cats_lst = []
+    ccl = False
+    
+
+    for wrkout in user_cats_lst:
+        if wrkout in categories:
+            if wrkout not in cats_lst:
+                cats_lst.append(wrkout)
+        else:
+            workout = wrkout
+            while workout not in categories:
+                ccl = False
+                print(f"Workout {workout} was not recognised, type the workout you meant or type CANCEL to cancel")
+                workout = input(">>>")
+                if workout == "CANCEL" or workout == "cancel":
+                    ccl = True
+                    break
+            if ccl != True:
+                cats_lst.append(workout)
+
+    if "running" in cats_lst:
+        targ_dist = input("What is your target distance in km?")
+        max_dist = input("What is your current estimated maximum distance in km?")
+        avg_pace = input("What is your average pace in minutes per kilometer?")
+
+
+    print("Please enter which equipment you own from this list, seperated by commas:\ndumbells, resistance band,\nbarbell, pullup bar")
+    user_eqip = input(">>>")
+    user_eqip_lst = user_eqip.split(",")
+    equipment_list = []
+    
+
+    for equipment_piece in user_eqip_lst:
+        if equipment_piece in equipment:
+            if equipment_piece not in equipment_list:
+                equipment_list.append(equipment_piece)
+        else:
+            equip_piec = equipment_piece
+            print(equip_piec)
+            print(equip_piec in equipment)
+            print(equipment)
+            while equip_piec not in equipment:
+                ccl = False
+                print(f"Equipment piece {equipment_piece} was not recognised, type the equipment you meant or type CANCEL to cancel")
+                equip_piec = input(">>>")
+                if equip_piec == "CANCEL" or equip_piec == "cancel":
+                    ccl = True
+                    break
+            if ccl != True:
+                equipment_list.append(equip_piec)
+
+    print(cats_lst)
+    print(equipment_list)
+
+    name_file = name + ".csv"
+
+
+    with open(name_file, "w") as f:
+        f.write(name+"\n")
+        f.write(str(cats_lst)[1:-1]+"\n")
+        f.write(str(equipment_list)[1:-1]+"\n")
+        if "running" in cats_lst:
+            f.write(targ_dist + "," + max_dist + "," + avg_pace)
+
+def read_profile(name):
+    users = {}
+    users["Ieuan"] = {"max_exercises":{"current_plank":{"mins":2, "secs":40},
+        "max_pressups":30, "max_squats":15,
+        "max_situps":30, "max_tuck_jumps":12,
+        "max_star_jumps":30, "max_side_plank":2,
+        "max_plank":2, "max_up_down_plank":2, "max_mountain_climbers":45,
+        "max_skaters":45, "max_burpees":25, "max_high_knees":50, "max_running_time":30,
+                                 }, "difficulty":2}
+    return users[name]
+
+def login():
+    cont = True
+    
+    while cont:
+        print("Would to log in or sign up?")
+        login_bool = input(">>>")
+        
+        if login_bool.lower() == "sign up":
+            create_profile()
+            cont = False
+            
+        elif login_bool.lower() == "log in":
+            logging_in = True
+            while logging_in:
+                try: 
+                    print("What is your profile name?")
+                    profile_name = input(">>>")
+                    user = read_profile(profile_name)
+                    logging_in = False
+                    cont = False
+                    return user
+                except:
+                    print("This profile name does not exist. Please try again.")
+        else:
+            print("This is not a valid input. Please type 'log in' or 'sign up'.")
+            
+import random as r
+import math as m
+
+def generate_plank(user):
+    
+    #Take the details of the users current planking ability
+    plank_mins = user["current_plank"]["mins"]
+    plank_secs = user["current_plank"]["secs"]
+    
+    #Convert that into just minutes (demimal)
+    base_time = plank_mins + plank_secs/60
+    
+    #add up to 30 seconds to the plank
+    added_secs = r.randint(0, 30)/60
+    target_plank_mins = base_time + added_secs
+    
+    #convert back into mins and secs
+    target_plank_mins_secs = m.modf(target_plank_mins)
+    target_plank_time = (int(target_plank_mins_secs[1]), round(target_plank_mins_secs[0]*60))
+    
+    #return an instruction to be printed to the user
+    print(f"Plank for {target_plank_time[0]} minute(s) and {target_plank_time[1]} seconds")
+    return target_plank_time
+
+
+def generate_pressup(user, diff):
+    
+    #Take the details of the users current press up ability
+    pressup_reps = user["max_pressups"]
+    
+    #add up to a 15% increase in number of reps (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_reps = int(pressup_reps * increase)
+    
+    #decide upon variation
+    variations = ["standard", "diamond", "wide hands"]
+    variation = r.choice(variations)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_reps} {variation} press ups.")
+    return new_reps
+
+def generate_squat(user, diff):
+    
+    #Take the details of the users current press up ability
+    max_squats = user["max_squats"]
+    
+    #add up to a 15% increase in number of reps (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_reps = int(max_squats * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_reps} squats.")
+    return new_reps
+
+def generate_situp(user, diff):
+    
+    #Take the details of the users current press up ability
+    situp_reps = user["max_situps"]
+    
+    #add up to a 15% increase in number of reps (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_reps = int(situp_reps * increase)
+    
+    #decide upon variation
+    variations = ["sit ups", "crunches"]
+    variation = r.choice(variations)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_reps} {variation}.")
+    return new_reps
+
+def bodyweight(user, diff):
+    
+    print("Your bodyweight workout is as follows:")
+    
+    exercises = ["plank", "press up", "squat", "sit up"]
+    workout = []
+    
+    #Chose what workouts to do, in what order
+    exercise_counts = [7, 10, 12, 15]
+    for i in range(exercise_counts[diff]):
+        workout.append(r.choice(exercises))
+    
+    #Generate a unique instruction for each exercise in this workout
+    for exercise in workout:
+        if exercise == "plank":
+            generate_plank(user)
+        elif exercise == "press up":
+            generate_pressup(user, diff)
+        elif exercise == "squat":
+            generate_squat(user, diff)
+        else:
+            generate_situp(user, diff)
+            
+#This would be replaced with the data for the logged in user
+user = {"current_plank":{"mins":2, "secs":40}, "max_pressups":30, "max_squats":15, "max_situps":30}
+difficulty = 3
+
+import random as r
+import math as m
+    
+def running_on_the_spot(user,diff):
+    
+    #Take the details of the users curent running ability
+    running_time = user["max_running_time"]
+    
+    #add up to a 15% increase in running time (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_time = int(running_time * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_time} minutes of running on the spot.")
+    return new_time
+
+def squats(user, diff):
+    
+    #Take the details of the users current squats ability
+    max_squats = user["max_squats"]
+    
+    #add up to a 15% increase in number of reps (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_reps = int(max_squats * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_reps} squats.")
+    return new_reps
+
+def high_knees(user,diff):
+    #Take the details of the users current high knees max time
+    max_time = user["max_high_knees"]
+    
+    #add up to a 15% increase in number of time (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_time = int(max_time * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_time} minutes of high knees.")
+    return new_time
+
+def burpees(user,diff):
+    #Take the details of the users current max burpees
+    max_burpee = user["max_burpees"]
+    
+    #add up to a 15% increase in number of reps (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_burpee = int(max_burpee * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_burpee} burpees.")
+    return new_burpee
+ 
+def skaters(user,diff):
+    #Take the details of the users current skaters max time
+    max_time = user["max_skaters"]
+    
+    #add up to a 15% increase in time (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_time = int(max_time * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_time} minutes of skaters.")
+    return new_time
+
+def mountain_climbers(user,diff):
+    #Take the details of the users current mountain climbers max time
+    max_time = user["max_mountain_climbers"]
+    
+    #add up to a 15% increase in time (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_time = int(max_time * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_time} minutes of mountain climbers.")
+    return new_time
+
+def up_down_plank(user,diff):
+    #Take the details of the users current up down plank max time
+    max_time = user["max_up_down_plank"]
+    
+    #add up to a 15% increase in time (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_time = int(max_time * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_time} minutes of up down planks.")
+    return new_time
+
+def plank(user,diff):
+    #Take the details of the users current max plank time
+    max_time = user["max_plank"]
+    
+    #add up to a 15% increase in time (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_time = int(max_time * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_time} minutes of the plank.")
+    return new_time
+
+def side_plank(user,diff):
+    #Take the details of the users current max side plank time
+    max_time = user["max_side_plank"]
+    
+    #add up to a 15% increase in time (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_time = int(max_time * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_time} minutes of side planks.")
+    return new_time
+
+def star_jumps(user,diff):
+    #Take the details of the users current max star jumps
+    max_star_jumps = user["max_star_jumps"]
+    
+    #add up to a 15% increase in number of reps (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_star_jumps = int(max_star_jumps * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_star_jumps} star jumps.")
+    return new_star_jumps
+
+def tuck_jumps(user,diff):
+    #Take the details of the users current max tuck jumps
+    max_tuck_jumps = user["max_tuck_jumps"]
+    
+    #add up to a 15% increase in number of reps (dependent upon difficulty)
+    increase = diff*0.05 + 1
+    new_tuck_jumps = int(max_tuck_jumps * increase)
+    
+    #Return the instruction to be printed to the user
+    print(f"Do {new_tuck_jumps} tuck jumps.")
+    return new_tuck_jumps
+    
+def cardio_workout(user, diff):
+    
+    print("Your cardio workout is as follows:")
+    
+    exercises = ["running on the spot","squats","high knees","burpees","skaters","mountain climbers","up down planks","plank","side planks","star jumps","tuck jumps"]
+    workout = []
+    
+    #Chose what workouts to do, in what order
+    exercise_counts = [7, 10, 12, 15]
+    for i in range(exercise_counts[diff]):
+        workout.append(r.choice(exercises))
+    
+    #Generate a unique instruction for each exercise in this workout
+    for exercise in workout:
+        if exercise == "running on the spot":
+            running_on_the_spot(user,diff)
+        elif exercise == "squats":
+            squats(user,diff)
+        elif exercise == "high knees":
+            high_knees(user,diff)
+        elif exercise == "burpees":
+            burpees(user,diff)
+        elif exercise == "skaters":
+            skaters(user,diff)
+        elif exercise == "mountain climbers":
+            mountain_climbers(user,diff)
+        elif exercise == "up down planks":
+            up_down_plank(user,diff)
+        elif exercise == "plank":
+            plank(user,diff)
+        elif exercise == "side planks":
+            side_plank(user,diff)
+        elif exercise == "star jumps":
+            star_jumps(user,diff)
+        else:
+            tuck_jumps(user,diff)
+            
+            
+#This would be replaced with the data for the logged in user
+
+
+
+def main(users):
+ 
+    print("Welcome to the fitness tracker 3000!")
+    
+    user = login()
+    
+    cont = "Y"
+    while cont == "Y":
+                
+        print("Please enter a command or type 'HELP' for a list of commands.")
+        commands = {"HELP":"Lists all commands", "QUIT": "Quits the program"}
+        inp = input(">>>")
+        
+        #try:
+        if inp.upper() == "BODYWEIGHT":
+            bodyweight(users["Ieuan"]["max_exercises"], users["Ieuan"]["difficulty"])
+        elif inp.upper() == "CARDIO":
+            cardio_workout(users["Ieuan"]["max_exercises"], users["Ieuan"]["difficulty"])
+        elif inp.upper() == "HELP":
+            print("Here is a list of all commands:")
+            for command in commands:
+                print(command, ":", commands[command])
+
+        elif inp.upper() == "QUIT":
+            print("See you next time!")
+            break
+
+        else:
+            assert False
+            
+        #except error as e:
+            #print("Program error, please try again.", e)
+    
+    
+
+main(users)
