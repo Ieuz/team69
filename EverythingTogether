@@ -1,3 +1,5 @@
+import random as r
+import math as m
 
 def create_profile():
     categories = ["running", "indoor cardio", "weight training", "muscle groups", "bodyweight training", "core strength"]
@@ -80,7 +82,8 @@ def read_profile(name):
         "max_situps":30, "max_tuck_jumps":12,
         "max_star_jumps":30, "max_side_plank":2,
         "max_plank":2, "max_up_down_plank":2, "max_mountain_climbers":45,
-        "max_skaters":45, "max_burpees":25, "max_high_knees":50, "max_running_time":30,
+        "max_skaters":45, "max_burpees":25, "max_high_knees":50, "max_running_time":30, "max_bcurls":2,
+                                       "max_tcurls":4,"max_spresses":6,"max_cpresses":8,"max_lraises":10
                                  }, "difficulty":2}
     return users[name]
 
@@ -110,8 +113,57 @@ def login():
         else:
             print("This is not a valid input. Please type 'log in' or 'sign up'.")
             
-import random as r
-import math as m
+def generate_bcurl(user,diff):
+    bcurl_reps=user["max_bcurls"]
+    new_reps=bcurl_reps+diff*2
+    print(f"Do {new_reps} bicep curls")
+
+
+def generate_tcurl(user,diff):
+    tcurl_reps=user["max_tcurls"]
+    new_reps=tcurl_reps+diff*2
+    print(f"Do {new_reps} tricep curls")
+
+
+def generate_shoulderpress(user,diff):
+    spress_reps=user["max_spresses"]
+    new_reps=spress_reps+diff*2
+    print(f"Do {new_reps} shoulder presses")
+
+
+def generate_chestpress(user,diff):
+    cpress_reps=user["max_cpresses"]
+    new_reps=cpress_reps+diff*2
+    print(f"Do {new_reps} chest presses")
+
+
+def generate_lateralraise(user,diff):
+    lraise_reps=user["max_lraises"]
+    new_reps=lraise_reps+diff*2
+    print(f"Do {new_reps} lateral raises")
+
+
+def weights(user,diff):
+    print("Your workout with weights is as follows:")
+
+    exercises=["bicep curl","tricep curl","shoulder press","chest press","lateral raise"]
+    workout=[]
+
+    exercise_counts=[5,7,10,12]
+    for i in range(exercise_counts[diff]):
+        workout.append(r.choice(exercises))
+
+    for exercise in workout:
+        if exercise=="bicep curl":
+            generate_bcurl(user,diff)
+        elif exercise=="tricep curl":
+            generate_tcurl(user,diff)
+        elif exercise=="shoulder press":
+            generate_shoulderpress(user,diff)
+        elif exercise=="chest press":
+            generate_chestpress(user,diff)
+        elif exercise=="lateral raise":
+            generate_lateralraise(user,diff)
 
 def generate_plank(user):
     
@@ -204,13 +256,6 @@ def bodyweight(user, diff):
             generate_squat(user, diff)
         else:
             generate_situp(user, diff)
-            
-#This would be replaced with the data for the logged in user
-user = {"current_plank":{"mins":2, "secs":40}, "max_pressups":30, "max_squats":15, "max_situps":30}
-difficulty = 3
-
-import random as r
-import math as m
     
 def running_on_the_spot(user,diff):
     
@@ -388,11 +433,12 @@ def cardio_workout(user, diff):
 
 
 
-def main(users):
+def main():
  
     print("Welcome to the fitness tracker 3000!")
     
     user = login()
+    print(user)
     
     cont = "Y"
     while cont == "Y":
@@ -403,9 +449,11 @@ def main(users):
         
         #try:
         if inp.upper() == "BODYWEIGHT":
-            bodyweight(users["Ieuan"]["max_exercises"], users["Ieuan"]["difficulty"])
+            bodyweight(user["max_exercises"], user["difficulty"])
         elif inp.upper() == "CARDIO":
-            cardio_workout(users["Ieuan"]["max_exercises"], users["Ieuan"]["difficulty"])
+            cardio_workout(user["max_exercises"], user["difficulty"])
+        elif inp.upper() == "WEIGHT":
+            weights(user["max_exercises"], user["difficulty"])
         elif inp.upper() == "HELP":
             print("Here is a list of all commands:")
             for command in commands:
@@ -423,4 +471,5 @@ def main(users):
     
     
 
-main(users)
+    
+main()
