@@ -120,7 +120,7 @@ def star_jumps(user,diff):
     new_star_jumps = int(max_star_jumps * increase)
     
     #Return the instruction to be printed to the user
-    print(f"Do {new_star_jump} star jumps.")
+    print(f"Do {new_star_jumps} star jumps.")
     return new_star_jumps
 
 def tuck_jumps(user,diff):
@@ -145,7 +145,7 @@ def cardio_workout(user, diff):
     #Chose what workouts to do, in what order
     exercise_counts = [7, 10, 12, 15]
     for i in range(exercise_counts[diff]):
-        workout.append(r.choice(excersises))
+        workout.append(r.choice(exercises))
     
     #Generate a unique instruction for each exercise in this workout
     for exercise in workout:
@@ -162,19 +162,12 @@ def cardio_workout(user, diff):
         elif exercise == "mountain climbers":
             mountain_climbers(user,diff)
         elif exercise == "up down planks":
-            up_down_planks(user,diff)
+            up_down_plank(user,diff)
         elif exercise == "plank":
-            planks(user,diff)
+            plank(user,diff)
         elif exercise == "side planks":
-            side_planks(user,diff)
+            side_plank(user,diff)
         elif exercise == "star jumps":
             star_jumps(user,diff)
         else:
             tuck_jumps(user,diff)
-            
-            
-#This would be replaced with the data for the logged in user
-user = {"current_plank":{"mins":2, "secs":40}, "max_pressups":30, "max_squats":15, "max_situps":30}
-difficulty = 3
-
-cardio_workout(user, difficulty)
