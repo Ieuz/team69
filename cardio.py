@@ -12,7 +12,7 @@ def running_on_the_spot(user,diff):
     
     #Return the instruction to be printed to the user
     print(f"Do {new_time} minutes of running on the spot.")
-    return new_reps
+    return new_time
 
 def squats(user, diff):
     
