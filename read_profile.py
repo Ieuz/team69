@@ -24,7 +24,7 @@ def read_profile(name):
                 for num, eqpmt in enumerate(profile["equipment"]):
                     profile["equipment"][num] = (profile["equipment"][num]).replace("'", "")
                     profile["equipment"][num] = (profile["equipment"][num]).strip()
-            elif index == 3:
+            elif index == 3 and line.split(",")[0] != "current_plank_mins":
                 profile["running"] = {}
                 for ind, element in enumerate(line.split(",")):
                     if ind == 0:
@@ -33,3 +33,11 @@ def read_profile(name):
                         profile["running"]["max_dist"] = int(element)
                     elif ind == 2:
                         profile["running"]["avg_pace"] = int(element)
+
+            elif index > 3:
+                lne = line.split(",")
+                profile[lne[0]] = lne[1][:-1]
+
+    return(profile)
+
+print(read_profile("Karl"))

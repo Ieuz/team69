@@ -1,3 +1,9 @@
+#def inpt(ting):
+ #   outpt = ""
+  #  while outpt = "":
+   #     outpt = input(ting)
+        
+
 def create_profile():
     categories = ["running", "indoor cardio", "weight training", "muscle groups", "bodyweight training", "core strength"]
     equipment = ["dumbells", "resistance band", "barbell", "pullup bar"]
@@ -46,9 +52,9 @@ def create_profile():
                 equipment_list.append(equipment_piece)
         else:
             equip_piec = equipment_piece
-            print(equip_piec)
-            print(equip_piec in equipment)
-            print(equipment)
+            #print(equip_piec)
+            #print(equip_piec in equipment)
+            #print(equipment)
             while equip_piec not in equipment:
                 ccl = False
                 print(f"Equipment piece {equipment_piece} was not recognised, type the equipment you meant or type CANCEL to cancel")
@@ -59,8 +65,31 @@ def create_profile():
             if ccl != True:
                 equipment_list.append(equip_piec)
 
-    print(cats_lst)
-    print(equipment_list)
+                
+    current_plank = {}
+    plankstats = input("Please enter how long you can do a plank for in the format mins,secs (i.e. '3,20'):")
+    plankstats_lst = plankstats.split(",")
+    current_plank["mins"] = plankstats_lst[0]
+    current_plank["secs"] = plankstats_lst[1]
+    workout_stats = {}
+    workout_stats["max_pressups"] = input("Enter your max pressups:")
+    workout_stats["max_squats"] = input("Enter your max squats:")
+    workout_stats["max_situps"] = input("Enter your max situps:")
+    workout_stats["max_running_time"] = input("Enter your max running time in seconds:")
+    workout_stats["max_high_knees"] = input("Enter your max high knees time in seconds:")
+    workout_stats["max_burpees"] = input("Enter your max burpees:")
+    workout_stats["max_skaters"] = input("Enter your max skater time in seconds:")
+    workout_stats["max_mountain_climbers"] = input("Enter your max mountain climber time in seconds:")
+    workout_stats["max_up_down_plank"] = input("Enter your max up down plank time in seconds:")
+    workout_stats["max_plank"] =(int(plankstats_lst[0])*60) + int(plankstats_lst[1])
+    workout_stats["max_side_plank"] = input("Enter your max side plank time in seconds:")
+    workout_stats["max_star_jumps"] = input("Please enter your max star jump time in seconds:")
+    workout_stats["max_tuck_jumps"] = input("Please enter your max tuck jumps:")
+    
+    
+
+
+    
 
     name_file = name + ".csv"
 
@@ -70,4 +99,12 @@ def create_profile():
         f.write(str(cats_lst)[1:-1]+"\n")
         f.write(str(equipment_list)[1:-1]+"\n")
         if "running" in cats_lst:
-            f.write(targ_dist + "," + max_dist + "," + avg_pace)
+            f.write(targ_dist + "," + max_dist + "," + avg_pace + "\n")
+
+        f.write("current_plank_mins," + current_plank["mins"] + "\n")
+        f.write("current_plank_secs," + current_plank["secs"] + "\n")
+
+        for key in workout_stats:
+            f.write(key + "," + str(workout_stats[key]) + "\n")
+
+create_profile()
