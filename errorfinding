@@ -772,7 +772,6 @@ def main():
     print("Welcome to the workout master 3000!")
     
     user = login()
-    print(user)
     difficulties = {}
     difficulties = {"easy":0, "medium":1, "hard":2, "very hard":3}
     print(f"What difficulty would you like for today's workout? Please enter from the following \n{difficulties.keys()}")
