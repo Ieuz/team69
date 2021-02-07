@@ -29,6 +29,7 @@ def read_profile(name):
                 profile["running"]["distance"] = {}
                 profile["running"]["avg_pace"] = {}
                 profile["running"]["sprint"] = {}
+                profile["running"]["jog"] = {}
                 for ind, element in enumerate(line.split(",")):
                     if ind == 0:
                         profile["running"]["distance"]["targ_dist"] = int(element)
