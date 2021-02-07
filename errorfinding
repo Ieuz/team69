@@ -664,9 +664,9 @@ def create_profile():
         for key in workout_stats.keys():
             if key != 'current_plank':
                 workout_stats[key] = int(workout_stats[key])
-    print("If you do not own the equipment for some of the following exercises, enter 0 for the maximum for that exercise") 
     
     if "weight training" in cats_lst:
+        print("If you do not own the equipment for some of the following exercises, enter 0 for the maximum for that exercise") 
         workout_stats["max_barbcurls"] = inpt("Please enter your max barbell curls:")
         workout_stats["max_barbsquats"] = inpt("Please enter your max barbell squats:")
         workout_stats["max_benchpressreps"] = inpt("Please enter your max bench press reps:")
