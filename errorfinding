@@ -70,7 +70,7 @@ def generate_sprint(user):
     pb = user["running"]["sprint"]["personal_best"]
 
     #return sprint with personal best
-     print(f"Your personal best time for a {distance}m sprint is {pb} seconds. Try and beat it today.")
+    print(f"Your personal best time for a {distance}m sprint is {pb} seconds. Try and beat it today.")
     return distance, pb     
 def generate_bcurl(user,diff):
     bcurl_reps=user["max_bcurls"]
