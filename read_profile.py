@@ -40,6 +40,12 @@ def read_profile(name):
                         profile["running"]["avg_pace"]["secs"] = int(float(element))
                     elif ind == 4:
                         profile["running"]["sprint"]["distance"] = int(element)
+                    elif ind == 5:
+                        profile["running"]["sprint"]["personal_best"] = int(element)
+                    elif ind == 6:
+                        profile["running"]["jog"]["distance"] = int(element)
+                    elif ind == 7:
+                        profile["running"]["jog"]["pace"] = int(element)
 
             elif index > 3:
                 lne = line.split(",")
