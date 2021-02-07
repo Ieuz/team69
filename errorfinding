@@ -738,25 +738,25 @@ def read_profile(name):
                 profile["running"]["jog"] = {}
                 for ind, element in enumerate(line.split(",")):
                     if ind == 0:
-                        profile["running"]["distance"]["targ_dist"] = int(element)
+                        profile["running"]["distance"]["targ_dist"] = float(element)
                     elif ind == 1:
-                        profile["running"]["distance"]["max_dist"] = int(element)
+                        profile["running"]["distance"]["max_dist"] = float(element)
                     elif ind == 2:
-                        profile["running"]["avg_pace"]["mins"] = int(float(element))
+                        profile["running"]["avg_pace"]["mins"] = float(element)
                     elif ind == 3:
-                        profile["running"]["avg_pace"]["secs"] = int(float(element))
+                        profile["running"]["avg_pace"]["secs"] = float(element)
                     elif ind == 4:
-                        profile["running"]["sprint"]["distance"] = int(element)
+                        profile["running"]["sprint"]["distance"] = float(element)
                     elif ind == 5:
-                        profile["running"]["sprint"]["personal_best"] = int(element)
+                        profile["running"]["sprint"]["personal_best"] = float(element)
                     elif ind == 6:
-                        profile["running"]["jog"]["distance"] = int(element)
+                        profile["running"]["jog"]["distance"] = float(element)
                     elif ind == 7:
-                        profile["running"]["jog"]["pace"] = int(element)
+                        profile["running"]["jog"]["pace"] = float(element)
 
             elif index > 3:
                 lne = line.split(",")
-                profile[lne[0]] = lne[1][:-1]
+                profile[lne[0]] = float(lne[1][:-1])
 
     return(profile)            
             
