@@ -127,8 +127,8 @@ def dumbell(user,diff):
 def generate_plank(user):
     
     #Take the details of the users current planking ability
-    plank_mins = user["current_plank"]["mins"]
-    plank_secs = user["current_plank"]["secs"]
+    plank_mins = user["current_plank_mins"]
+    plank_secs = user["current_plank_secs"]
     
     #Convert that into just minutes (demimal)
     base_time = plank_mins + plank_secs/60
