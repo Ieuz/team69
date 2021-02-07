@@ -559,7 +559,7 @@ def login():
 def inpt(ting):
     outpt = ""
     while outpt == "":
-        outpt = input(ting)
+        outpt = float(input(ting))
 
     return outpt
         
@@ -635,10 +635,11 @@ def create_profile():
         workout_stats['current_plank'] = {}
         plankstats = ""
         while len(plankstats.split(",")) != 2:
-            plankstats = inpt("Please enter how long you can do a plank for in the format mins,secs (i.e. '3,20'):")
+            plankstats = input("Please enter how long you can do a plank for in the format mins,secs (i.e. '3,20'):")
         plankstats_lst = plankstats.split(",")
         workout_stats['current_plank']["mins"] = int(plankstats_lst[0])
         workout_stats['current_plank']["secs"] = int(plankstats_lst[1])
+        workout_stats['current_plank'] = 
 
     
     if "bodyweight training" in cats_lst or "indoor cardio" in cats_lst:
@@ -682,8 +683,6 @@ def create_profile():
         workout_stats["max_spresses"] = inpt("Please enter your max shoulder presses:")
         workout_stats["max_cpresses"] = inpt("Please enter your max chest presses:")
         workout_stats["max_lraises"] = inpt("Please enter your max lateral raises:")
-        for i in workout_stats:
-            i = int(i)
     
 
     
