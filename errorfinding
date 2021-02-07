@@ -813,7 +813,7 @@ def main():
             generate_interval(user, difficulty)
             
         elif inp.upper() == "SPRINT":
-            generate_interval(user)
+            generate_sprint(user)
 
         elif inp.upper() == "HELP":
             print("Here is a list of all commands:")
