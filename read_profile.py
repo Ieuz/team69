@@ -26,18 +26,23 @@ def read_profile(name):
                     profile["equipment"][num] = (profile["equipment"][num]).strip()
             elif index == 3 and line.split(",")[0] != "current_plank_mins":
                 profile["running"] = {}
+                profile["running"]["distance"] = {}
+                profile["running"]["avg_pace"] = {}
+                profile["running"]["sprint"] = {}
                 for ind, element in enumerate(line.split(",")):
                     if ind == 0:
-                        profile["running"]["targ_dist"] = int(element)
+                        profile["running"]["distance"]["targ_dist"] = int(element)
                     elif ind == 1:
-                        profile["running"]["max_dist"] = int(element)
+                        profile["running"]["distance"]["max_dist"] = int(element)
                     elif ind == 2:
-                        profile["running"]["avg_pace"] = int(element)
+                        profile["running"]["avg_pace"]["mins"] = int(float(element))
+                    elif ind == 3:
+                        profile["running"]["avg_pace"]["secs"] = int(float(element))
+                    elif ind == 4:
+                        profile["running"]["sprint"]["distance"] = int(element)
 
             elif index > 3:
                 lne = line.split(",")
                 profile[lne[0]] = lne[1][:-1]
 
     return(profile)
-
-print(read_profile("Karl"))
