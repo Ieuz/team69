@@ -699,7 +699,7 @@ def create_profile():
         f.write(str(cats_lst)[1:-1]+"\n")
         f.write(str(equipment_list)[1:-1]+"\n")
         if "running" in cats_lst:
-            f.write(targ_dist + "," + max_dist + "," + str(int(avg_pace)) + "," + str(((avg_pace*60) % 60)) + "," + str(max_sprint) + "\n")
+            f.write(str(targ_dist) + "," + str(max_dist) + "," + str(int(avg_pace)) + "," + str(((avg_pace*60) % 60)) + "," + str(max_sprint) + "," + str("pb")   + "," + str(jog_dist) + "," + str(jog_pace) + "\n")
 
         #f.write("current_plank_mins," + current_plank["mins"] + "\n")
         #f.write("current_plank_secs," + current_plank["secs"] + "\n")
