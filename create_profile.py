@@ -8,7 +8,7 @@ def inpt(ting):
 
 def create_profile():
     categories = ["running", "indoor cardio", "weight training", "bodyweight training"]
-    equipment = ["dumbells", "resistance band", "barbell", "pullup bar"]
+    equipment = ["dumbells", "resistance band", "barbell", "pullup bar","no equipment"]
 
     
     name = input("Please enter your name: ")
@@ -47,7 +47,7 @@ def create_profile():
         max_sprint = inpt("What is your maximum sprint distance in metres?")
 
 
-    print("Please enter which equipment you own from this list, seperated by commas:\ndumbells, resistance band,\nbarbell, pullup bar")
+    print("Please enter which equipment you own from this list, seperated by commas:\ndumbells, \nresistance band,\nbarbell, \npullup bar, \nno equipment")
     user_eqip = input(">>>")
     user_eqip_lst = user_eqip.split(",")
     equipment_list = []
