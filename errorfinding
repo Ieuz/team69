@@ -776,7 +776,7 @@ def main():
                 
         print("Please enter a command or type 'HELP' for a list of commands.")
         commands = {"BODYWEIGHT":"Provides a bodyweight workout", "WEIGHT":"Provides a workout using equipement",
-                    "CARDIO":"Provides an indoor cardio workout", "RUNNING":"Provides a running workout",
+                    "CARDIO":"Provides an indoor cardio workout", "JOG":"Provides a jogging workout", "DISTANCE": "provides a distance running workout", "INTERVAL":"creates an interval workout", "SPRINT":"generates sprint workout",
                     "HELP":"Lists all commands", "QUIT": "Quits the program"}
         inp = input(">>>")
         
@@ -798,6 +798,18 @@ def main():
             if choice == "RANDOM":
                 choice = r.choice(["DUMBELLS", "RESISTANCE BANDS", "BARBELL", "PULL UP BAR"])
             choices[choice](user, difficulty)
+            
+        elif inp.upper() == "JOG":
+            generate_jog(user)
+            
+        elif inp.upper() == "DISTANCE":
+            generate_distance(user)
+            
+        elif inp.upper() == "INTERVAL":
+            generate_interval(user)
+            
+        elif inp.upper() == "SPRINT":
+            generate_interval(user)
 
         elif inp.upper() == "HELP":
             print("Here is a list of all commands:")
