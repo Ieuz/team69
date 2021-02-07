@@ -7,13 +7,13 @@ def inpt(ting):
         
 
 def create_profile():
-    categories = ["running", "indoor cardio", "weight training", "muscle groups", "bodyweight training", "core strength"]
+    categories = ["running", "indoor cardio", "weight training", "bodyweight training"]
     equipment = ["dumbells", "resistance band", "barbell", "pullup bar"]
 
     
     name = input("Please enter your name: ")
-    print("Categories:\nrunning, indoor cardio,\nweight training,\nmuscle groups, bodyweight training,\ncore strength\n\n")
-    print("Which categories of workout are you interested in? Please enter your answers as a list seperated by commas\n(In the format 'running,core strength,indoor cardio')")
+    print("Categories:\nrunning,\nindoor cardio,\nweight training,\nbodyweight training")
+    print("Which of the above workouts are you interested in? Please enter your answers as a list seperated by commas\n(In the format 'running,indoor cardio, etc.')")
     user_cats = input(">>>")
     user_cats_lst = user_cats.split(",")
     cats_lst = []
@@ -63,9 +63,6 @@ def create_profile():
                 equipment_list.append(equipment_piece)
         else:
             equip_piec = equipment_piece
-            #print(equip_piec)
-            #print(equip_piec in equipment)
-            #print(equipment)
             while equip_piec not in equipment:
                 ccl = False
                 print(f"Equipment piece {equipment_piece} was not recognised, type the equipment you meant or type CANCEL to cancel")
@@ -75,54 +72,60 @@ def create_profile():
                     break
             if ccl != True:
                 equipment_list.append(equip_piec)
-
-                
-    current_plank = {}
-    plankstats = ""
-    while len(plankstats.split(",")) != 2:
-        plankstats = inpt("Please enter how long you can do a plank for in the format mins,secs (i.e. '3,20'):")
-    plankstats_lst = plankstats.split(",")
-    current_plank["mins"] = plankstats_lst[0]
-    current_plank["secs"] = plankstats_lst[1]
     workout_stats = {}
+    if "bodyweight" in cats_lst or "weight training" in cats_lst or "indoor cardio" in cats_lst:
+        current_plank = {}
+        plankstats = ""
+        while len(plankstats.split(",")) != 2:
+            plankstats = inpt("Please enter how long you can do a plank for in the format mins,secs (i.e. '3,20'):")
+        plankstats_lst = plankstats.split(",")
+        current_plank["mins"] = plankstats_lst[0]
+        current_plank["secs"] = plankstats_lst[1]
+
     
-    workout_stats["max_pressups"] = inpt("Enter your max pressups:")
-    workout_stats["max_squats"] = inpt("Enter your max squats:")
-    workout_stats["max_situps"] = inpt("Enter your max situps:")
-    workout_stats["max_running_time"] = inpt("Enter your max running on the spot time in seconds:")
-    workout_stats["max_high_knees"] = inpt("Enter your max high knees time in seconds:")
-    workout_stats["max_burpees"] = inpt("Enter your max burpees:")
-    workout_stats["max_skaters"] = inpt("Enter your max skater time in seconds:")
-    workout_stats["max_mountain_climbers"] = inpt("Enter your max mountain climber time in seconds:")
-    workout_stats["max_up_down_plank"] = inpt("Enter your max up down plank time in seconds:")
-    workout_stats["max_plank"] =(int(plankstats_lst[0])*60) + int(plankstats_lst[1])
-    workout_stats["max_side_plank"] = inpt("Enter your max side plank time in seconds:")
-    workout_stats["max_star_jumps"] = inpt("Please enter your max star jumps:")
-    workout_stats["max_tuck_jumps"] = inpt("Please enter your max tuck jumps:")
+    if "bodyweight" in cats_lst or "indoor cardio" in cats_lst:
+        workout_stats["max_pressups"] = inpt("Enter your max pressups:")
+        workout_stats["max_squats"] = inpt("Enter your max squats:")
+        workout_stats["max_situps"] = inpt("Enter your max situps:")
+        workout_stats["max_running_time"] = inpt("Enter your max running on the spot time in seconds:")
+        workout_stats["max_high_knees"] = inpt("Enter your max high knees time in seconds:")
+        workout_stats["max_burpees"] = inpt("Enter your max burpees:")
+        workout_stats["max_skaters"] = inpt("Enter your max skater time in seconds:")
+        workout_stats["max_mountain_climbers"] = inpt("Enter your max mountain climber time in seconds:")
+        workout_stats["max_plank"] =(int(plankstats_lst[0])*60) + int(plankstats_lst[1])
+        workout_stats["max_side_plank"] = inpt("Enter your max side plank time in seconds:")
+        workout_stats["max_star_jumps"] = inpt("Please enter your max star jumps:")
+        workout_stats["max_tuck_jumps"] = inpt("Please enter your max tuck jumps:")
+        for key in workout_stats.keys():
+            workout_stats[key] = int(workout_stats[key])
     
-    workout_stats["max_barbcurls"] = inpt("Please enter your max barabell curls:")
-    workout_stats["max_barbsquats"] = inpt("Please enter your max barbell squats:")
-    workout_stats["max_benchpressreps"] = inpt("Please enter your max bench press reps:")
-    workout_stats["max_deadlifts"] = inpt("Please enter your max deadlifts:")
-    workout_stats["max_barbspresses"] = inpt("Please enter your max barbell shoulder presses:")
+    if "weight training" in cats_lst:
+        workout_stats["max_barbcurls"] = inpt("Please enter your max barabell curls:")
+        workout_stats["max_barbsquats"] = inpt("Please enter your max barbell squats:")
+        workout_stats["max_benchpressreps"] = inpt("Please enter your max bench press reps:")
+        workout_stats["max_deadlifts"] = inpt("Please enter your max deadlifts:")
+        workout_stats["max_barbspresses"] = inpt("Please enter your max barbell shoulder presses:")
 
-    workout_stats["max_pullups"] = inpt("Please enter your max pullups:")
-    workout_stats["max_chinups"] = inpt("Please enter your max chinups:")
-    workout_stats["max_muscleups"] = inpt("Please enter your max muscle ups:")
-    workout_stats["max_ktes"] = inpt("Please enter your max knee to elbow reps:")
-    workout_stats["max_hkrs"] = inpt("Please enter your max hanging knee raises:")
+        workout_stats["max_pullups"] = inpt("Please enter your max pullups:")
+        workout_stats["max_chinups"] = inpt("Please enter your max chinups:")
+        workout_stats["max_muscleups"] = inpt("Please enter your max muscle ups:")
+        workout_stats["max_ktes"] = inpt("Please enter your max knee to elbow reps:")
+        workout_stats["max_hkrs"] = inpt("Please enter your max hanging knee raises:")
 
-    workout_stats["max_onearmcurls"] = inpt("Please enter your max one arm bicep curls:")
-    workout_stats["max_flyes"] = inpt("Please enter your max flyes:")
-    workout_stats["max_frsquats"] = inpt("Please enter your max front squats:")
-    workout_stats["max_splitters"] = inpt("Please enter your max splitters:")
-    workout_stats["max_latwalks"] = inpt("Please enter your max lateral walk reps:")
+        workout_stats["max_onearmcurls"] = inpt("Please enter your max one arm bicep curls:")
+        workout_stats["max_flyes"] = inpt("Please enter your max flyes:")
+        workout_stats["max_frsquats"] = inpt("Please enter your max front squats:")
+        workout_stats["max_splitters"] = inpt("Please enter your max splitters:")
+        workout_stats["max_latwalks"] = inpt("Please enter your max lateral walk reps:")
 
-    workout_stats["max_bcurls"] = inpt("Please enter your max bicep curls:")
-    workout_stats["max_tcurls"] = inpt("Please enter your max tricep curls:")
-    workout_stats["max_spresses"] = inpt("Please enter your max shoulder presses:")
-    workout_stats["max_cpresses"] = inpt("Please enter your max chest presses:")
-    workout_stats["max_lraises"] = inpt("Please enter your max lateral raises:")
+        workout_stats["max_bcurls"] = inpt("Please enter your max bicep curls:")
+        workout_stats["max_tcurls"] = inpt("Please enter your max tricep curls:")
+        workout_stats["max_spresses"] = inpt("Please enter your max shoulder presses:")
+        workout_stats["max_cpresses"] = inpt("Please enter your max chest presses:")
+        workout_stats["max_lraises"] = inpt("Please enter your max lateral raises:")
+        for i in workout_stats:
+            i = int(i)
+    
 
     
     
@@ -143,5 +146,3 @@ def create_profile():
 
         for key in workout_stats:
             f.write(key + "," + str(workout_stats[key]) + "\n")
-
-create_profile()
