@@ -635,6 +635,9 @@ def create_profile():
                         break
                 if ccl != True:
                     equipment_list.append(equip_piec)
+       else:
+           equipment_list=[]
+        
     workout_stats = {}
     if "bodyweight training" in cats_lst or "weight training" in cats_lst or "indoor cardio" in cats_lst:
         workout_stats['current_plank'] = {}
