@@ -609,32 +609,32 @@ def create_profile():
         jog_dist = input("What is your maximum jogging distance in meters")
         jog_pace = float(input("What is the jogging pace would you like to hold in meters per second"))
 
+    if "weight training" in cats_lst:
+        print("Please enter which equipment you own from this list, seperated by commas:\ndumbells, resistance band,\nbarbell, pullup bar")
+        user_eqip = input(">>>")
+        user_eqip_lst = user_eqip.split(",")
+        equipment_list = []
 
-    print("Please enter which equipment you own from this list, seperated by commas:\ndumbells, resistance band,\nbarbell, pullup bar")
-    user_eqip = input(">>>")
-    user_eqip_lst = user_eqip.split(",")
-    equipment_list = []
 
-
-    for x in range(len(user_eqip_lst)):
-        user_eqip_lst[x] = (user_eqip_lst[x]).strip()
+        for x in range(len(user_eqip_lst)):
+            user_eqip_lst[x] = (user_eqip_lst[x]).strip()
     
 
-    for equipment_piece in user_eqip_lst:
-        if equipment_piece in equipment:
-            if equipment_piece not in equipment_list:
-                equipment_list.append(equipment_piece)
-        else:
-            equip_piec = equipment_piece
-            while equip_piec not in equipment:
-                ccl = False
-                print(f"Equipment piece {equipment_piece} was not recognised, type the equipment you meant or type CANCEL to cancel")
-                equip_piec = input(">>>")
-                if equip_piec == "CANCEL" or equip_piec == "cancel":
-                    ccl = True
-                    break
-            if ccl != True:
-                equipment_list.append(equip_piec)
+        for equipment_piece in user_eqip_lst:
+            if equipment_piece in equipment:
+                if equipment_piece not in equipment_list:
+                    equipment_list.append(equipment_piece)
+            else:
+                equip_piec = equipment_piece
+                while equip_piec not in equipment:
+                    ccl = False
+                    print(f"Equipment piece {equipment_piece} was not recognised, type the equipment you meant or type CANCEL to cancel")
+                    equip_piec = input(">>>")
+                    if equip_piec == "CANCEL" or equip_piec == "cancel":
+                        ccl = True
+                        break
+                if ccl != True:
+                    equipment_list.append(equip_piec)
     workout_stats = {}
     if "bodyweight training" in cats_lst or "weight training" in cats_lst or "indoor cardio" in cats_lst:
         workout_stats['current_plank'] = {}
