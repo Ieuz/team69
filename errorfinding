@@ -603,7 +603,7 @@ def create_profile():
         max_dist = inpt("What is your current estimated maximum distance in km?")
         avg_pace = float(inpt("What is your average pace in minutes per kilometer? (enter as decimal with a decimal point)"))
         max_sprint = inpt("What is your maximum sprint distance in metres?")
-        pb = input("What is your personal best time for the sprint you just input?")
+        pb = input("What is your personal best time for the sprint you just input(in seconds)?")
         jog_dist = input("What is your maximum jogging distance in meters")
         jog_pace = float(input("What is the jogging pace would you like to hold in meters per second"))
 
