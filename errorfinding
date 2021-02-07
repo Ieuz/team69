@@ -694,6 +694,8 @@ def create_profile():
 
 
     name_file = name + ".csv"
+    
+    workout_stats.pop("current_plank")
 
 
     with open(name_file, "w") as f:
