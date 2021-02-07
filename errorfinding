@@ -639,7 +639,6 @@ def create_profile():
         plankstats_lst = plankstats.split(",")
         workout_stats['current_plank']["mins"] = int(plankstats_lst[0])
         workout_stats['current_plank']["secs"] = int(plankstats_lst[1])
-        workout_stats['current_plank'] = 
 
     
     if "bodyweight training" in cats_lst or "indoor cardio" in cats_lst:
