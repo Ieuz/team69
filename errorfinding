@@ -42,7 +42,7 @@ def generate_distance(user):
     print(f"Try and finish your maximum distance ({maximum_dist}KM) in {max_pace_time[0]} minute(s) and {max_pace_time[1]} second(s).")
     return target_pace_time, max_pace_time
 
-def generate_interval(user):
+def generate_interval(user, difficulty):
 
     #Take the distance of the sprint in meters
     distance = user["running"]["sprint"]["distance"]
@@ -538,7 +538,9 @@ def login():
         login_bool = input(">>>")
         
         if login_bool.lower() == "sign up":
-            create_profile()
+            naem = create_profile()
+            user = read_profile(naem)
+            return user
             cont = False
             
         elif login_bool.lower() == "log in":
@@ -699,13 +701,15 @@ def create_profile():
         f.write(str(cats_lst)[1:-1]+"\n")
         f.write(str(equipment_list)[1:-1]+"\n")
         if "running" in cats_lst:
-            f.write(str(targ_dist) + "," + str(max_dist) + "," + str(int(avg_pace)) + "," + str(((avg_pace*60) % 60)) + "," + str(max_sprint) + "," + str("pb")   + "," + str(jog_dist) + "," + str(jog_pace) + "\n")
+            f.write(str(targ_dist) + "," + str(max_dist) + "," + str(int(avg_pace)) + "," + str(((avg_pace*60) % 60)) + "," + str(max_sprint) + "," + str(pb)   + "," + str(jog_dist) + "," + str(jog_pace) + "\n")
 
         #f.write("current_plank_mins," + "," + current_plank["mins"] + "\n")
         #f.write("current_plank_secs," + "," + current_plank["secs"] + "\n")
 
         for key in workout_stats:
             f.write(key + "," + str(workout_stats[key]) + "\n")
+            
+    return(name)
 
 
 
@@ -806,7 +810,7 @@ def main():
             generate_distance(user)
             
         elif inp.upper() == "INTERVAL":
-            generate_interval(user)
+            generate_interval(user, difficulty)
             
         elif inp.upper() == "SPRINT":
             generate_interval(user)
